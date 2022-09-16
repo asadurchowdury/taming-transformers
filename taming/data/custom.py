@@ -70,6 +70,7 @@ class CustomBase(Dataset):
             img = imread(path_)
         img = np.float32(img)
         img = np.moveaxis(img, 0, -1)
+        print(img.shape)
 
         return self.transform(img)
 
