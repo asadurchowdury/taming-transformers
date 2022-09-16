@@ -81,7 +81,7 @@ class VQModel(pl.LightningModule):
         return x.float()
 
     def training_step(self, batch, batch_idx, optimizer_idx):
-        x = self.get_input(batch, self.image_key)
+        x = self.get_input(batch, batch_idx)
         xrec, qloss = self(x)
 
         if optimizer_idx == 0:
@@ -102,7 +102,7 @@ class VQModel(pl.LightningModule):
             return discloss
 
     def validation_step(self, batch, batch_idx):
-        x = self.get_input(batch, self.image_key)
+        x = self.get_input(batch, batch_idx)
         xrec, qloss = self(x)
         aeloss, log_dict_ae = self.loss(qloss, x, xrec, 0, self.global_step,
                                             last_layer=self.get_last_layer(), split="val")
@@ -172,14 +172,14 @@ class VQSegmentationModel(VQModel):
         return opt_ae
 
     def training_step(self, batch, batch_idx):
-        x = self.get_input(batch, self.image_key)
+        x = self.get_input(batch, batch_idx)
         xrec, qloss = self(x)
         aeloss, log_dict_ae = self.loss(qloss, x, xrec, split="train")
         self.log_dict(log_dict_ae, prog_bar=False, logger=True, on_step=True, on_epoch=True)
         return aeloss
 
     def validation_step(self, batch, batch_idx):
-        x = self.get_input(batch, self.image_key)
+        x = self.get_input(batch, batch_idx)
         xrec, qloss = self(x)
         aeloss, log_dict_ae = self.loss(qloss, x, xrec, split="val")
         self.log_dict(log_dict_ae, prog_bar=False, logger=True, on_step=True, on_epoch=True)
