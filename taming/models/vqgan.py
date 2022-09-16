@@ -135,9 +135,9 @@ class VQModel(pl.LightningModule):
     def get_last_layer(self):
         return self.decoder.conv_out.weight
 
-    def log_images(self, batch, **kwargs):
+    def log_images(self, batch, batch_idx, **kwargs):
         log = dict()
-        x = self.get_input(batch, self.image_key)
+        x = self.get_input(batch, batch_idx)
         x = x.to(self.device)
         xrec, _ = self(x)
         if x.shape[1] > 3:
