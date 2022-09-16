@@ -79,13 +79,13 @@ class CustomTrain(CustomBase):
     def __init__(self, size, training_images_list_file):
         super().__init__()
         df = pd.read_csv(training_images_list_file)
-        self.paths = list(df["file_name"])
+        self.data = list(df["file_name"])
 
 
 class CustomTest(CustomBase):
     def __init__(self, size, test_images_list_file):
         super().__init__()
         df = pd.read_csv(test_images_list_file)
-        self.paths = list(df["file_name"])
+        self.data = list(df["file_name"])
 
 
