@@ -62,7 +62,7 @@ class CustomBase(Dataset):
 
     def __getitem__(self, index):
         path_ = self.data[index]
-        path_ = os.path.join("/nfs/turbo/umms-tocho/root_srh_db", path_)
+        path_ = "/nfs/turbo/umms-tocho/root_srh_db"+ path_
         try:
             img = imread(path_)
         except FileNotFoundError:
