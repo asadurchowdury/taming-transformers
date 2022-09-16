@@ -71,7 +71,7 @@ class CustomBase(Dataset):
         img = np.float32(img)
         img = np.moveaxis(img, 0, -1)
         img = self.transform(img)
-        img = torch.moveaxis(img, 0, -1)
+        img = torch.moveaxis(img, 0, 1)
         # print(img.shape)
 
         return img
